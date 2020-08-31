@@ -1,0 +1,13 @@
+.profile__container {
+  display: flex;
+  align-items: center;
+  /* Надо оставить место под кнопку Добавить*/
+  max-width: calc(100% - 170px);
+}
+
+@media screen and (max-width: 768px) {
+  .profile__container {
+    max-width: 100%;
+    flex-direction: column;
+  }
+}

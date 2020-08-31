@@ -1,0 +1,5 @@
+.header__image {
+  width: calc(142.01/1280*100vw);
+  max-width: 142.01px;
+  min-width: 103.74px;
+}

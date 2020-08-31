@@ -1,0 +1,8 @@
+.photo-grid__like {
+  background: url(../../../images/Heart.svg) center no-repeat;
+  border: none;
+  background-size: 100%;
+  cursor: pointer;
+  height: 18px;
+  width: 21px;
+}

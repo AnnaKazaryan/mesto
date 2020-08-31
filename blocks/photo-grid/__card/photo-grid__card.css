@@ -1,0 +1,7 @@
+.photo-grid__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  border-radius: 10px;
+  background-color: #fff;
+}

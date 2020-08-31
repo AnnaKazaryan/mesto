@@ -1,0 +1,4 @@
+.page__margin-for-header {
+  margin: 0 calc((100% - 320px)*199/(1280 - 320));
+}
+

@@ -1,0 +1,19 @@
+.popup__close {
+  background: url(../../../images/Plus.svg) center no-repeat;
+  background-size: 100%;
+  transform: rotate(45deg);
+  position: absolute;
+  border: none;
+  width: 40.7px;
+  height: 40.7px;
+  top: -40.7px;
+  right:-40.7px;
+  padding: 0;
+  box-shadow: none;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
