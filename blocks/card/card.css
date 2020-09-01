@@ -1,4 +1,4 @@
-.photo-grid__card {
+.card {
   display: flex;
   flex-direction: column;
   justify-content: stretch;

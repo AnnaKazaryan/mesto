@@ -8,83 +8,83 @@
 </head>
 <body class="page">
   <div class="page__container">
-    <header class="header page__margin-for-header">
+    <header class="header page__header">
       <img src="./images/logo.svg" class="header__image" alt="Логотип Mesto">
     </header>
 
-    <main class="content page__margin-for-content-and-footer">
+    <main class="content page__content">
       <section class="profile">
         <div class="profile__container">
           <img src="./images/Custo.jpg" class="profile__image" alt="Аватар">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button type="button" class="profile__edit-button"></button>
             <p class="profile__job">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
       <ul class="photo-grid">
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Karachaevsk.jpg" alt="Карачаево-Черкесия">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Карачаево-Черкесия</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Karachaevsk.jpg" alt="Карачаево-Черкесия">
+          <div class="card__caption">
+            <h2 class="card__text">Карачаево-Черкесия</h2>
+            <button class="card__like"></button>
           </div>
         </li>
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Гора Эльбрус</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Elbrus.jpg" alt="Гора Эльбрус">
+          <div class="card__caption">
+            <h2 class="card__text">Гора Эльбрус</h2>
+            <button class="card__like"></button>
           </div>
         </li>
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Dombai.jpg" alt="Домбай">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Домбай</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Dombai.jpg" alt="Домбай">
+          <div class="card__caption">
+            <h2 class="card__text">Домбай</h2>
+            <button class="card__like"></button>
           </div>
         </li>
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Meteora.jpg" alt="Метеоры">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Метеоры</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Meteora.jpg" alt="Метеоры">
+          <div class="card__caption">
+            <h2 class="card__text">Метеоры</h2>
+            <button class="card__like"></button>
           </div>
         </li>
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Mountains.jpg" alt="Человек в горах">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Человек в горах</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Mountains.jpg" alt="Человек в горах">
+          <div class="card__caption">
+            <h2 class="card__text">Человек в горах</h2>
+            <button class="card__like"></button>
           </div>
         </li>
-        <li class="photo-grid__card">
-          <img class="photo-grid__image" src="./images/Austria.jpg" alt="Лес в Австрии">
-          <div class="photo-grid__caption">
-            <h2 class="photo-grid__text">Лес в Австрии</h2>
-            <button class="photo-grid__like"></button>
+        <li class="card">
+          <img class="card__image" src="./images/Austria.jpg" alt="Лес в Австрии">
+          <div class="card__caption">
+            <h2 class="card__text">Лес в Австрии</h2>
+            <button class="card__like"></button>
           </div>
         </li>
       </ul>
     </main>
 
-    <footer class="footer page__margin-for-content-and-footer">
+    <footer class="footer page__footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
 
     <section class="popup">
       <div class="popup__container">
-        <form class="popup__form">
+        <form class="popup__form" name="profile-form">
           <h2 class="popup__title">Редактировать профиль</h2>
           <div class="popup__inputs">
-            <input type="text" placeholder="Имя" class="popup__input popup__name">
-            <input type="text" placeholder="Профессия" class="popup__input popup__job">
+            <input type="text" name="name" placeholder="Имя" class="popup__input popup__input_name">
+            <input type="text" name="job" placeholder="Профессия" class="popup__input popup__input_job">
           </div>
           <button type="submit" class="popup__save">Сохранить</button>
         </form>
-        <button class="popup__close"></button>
+        <button type="button" class="popup__close"></button>
       </div>
     </section>
   </div>
