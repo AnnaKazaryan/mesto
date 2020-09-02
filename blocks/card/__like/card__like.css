@@ -6,3 +6,8 @@
   height: 18.2px;
   width: 20.8px;
 }
+
+.card__like:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
