@@ -4,4 +4,5 @@
   justify-content: stretch;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }

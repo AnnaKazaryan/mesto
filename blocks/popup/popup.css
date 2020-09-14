@@ -3,12 +3,18 @@
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
-  /* position: absolute;*/
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+  /* Задано две трансформации: если закрываем popup, то сначала 0.5s идет затемнение,
+  потом visibility переключается на hidden (так как задана задержка в 0.5s).
+  Если открываем popup visibility сразу переключается на visible, так как в
+  popup_opened задано transition-delay:0s*/
 }
 
 

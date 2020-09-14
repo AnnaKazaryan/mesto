@@ -10,6 +10,13 @@
   font-size: 18px;
 }
 
+@media screen and (max-width: 540px) {
+  .popup__save {
+    height: 40px;
+    font-size: 14px;
+  }
+}
+
 .popup__save:hover {
   cursor: pointer;
   opacity: 0.8;

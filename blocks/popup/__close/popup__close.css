@@ -4,12 +4,21 @@
   transform: rotate(45deg);
   position: absolute;
   border: none;
-  width: 40.7px;
-  height: 40.7px;
-  top: -40.7px;
-  right:-40.7px;
+  width: 40px;
+  height: 40px;
+  top: -40px;
+  right:-40px;
   padding: 0;
   box-shadow: none;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__close {
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    right: -30px;
+  }
 }
 
 .popup__close:hover {

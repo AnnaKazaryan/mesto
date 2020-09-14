@@ -1,0 +1,15 @@
+.card__delete {
+  background: url(../../../images/Bin.svg) center no-repeat;
+  border: none;
+  background-size: contain;
+  height: 18px;
+  width: 19.3px;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+}
+
+.card__delete:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
