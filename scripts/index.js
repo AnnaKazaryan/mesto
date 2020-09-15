@@ -52,36 +52,40 @@ const photoCaption = popupForPhoto.querySelector('.popup__caption');
 
 function render() {
   initialCards.forEach(renderItem);
-  setListeners();
 }
 
 function renderItem(item) {
-	const htmlElement = cardFromTemplate.cloneNode(true);
-  htmlElement.querySelector(".card__image").src = item.link;
-  htmlElement.querySelector(".card__image").alt = item.name;
-  htmlElement.querySelector(".card__text").textContent = item.name;
+  const htmlElement = cardFromTemplate.cloneNode(true);
+  const cardImage = htmlElement.querySelector(".card__image");
+  const cardText = htmlElement.querySelector(".card__text");
+  const card = htmlElement.querySelector(".card");
+  cardImage.src = item.link;
+  cardImage.alt = item.name;
+  cardText.textContent = item.name;
   photogrid.prepend(htmlElement); // Добавляем новую карточку в начало сетки
+  card.querySelector('.card__like').addEventListener("click", likeToggle);
+  card.querySelector('.card__delete').addEventListener("click", deleteHandler);
+  cardImage.addEventListener("click", openPhoto);// Следим за кликами на все лайки, делиты и картинки
 }
 
-
-function profilePopupToggle() {
-  if (!popupForProfile.classList.contains('popup_opened')) {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
-  popupForProfile.classList.toggle('popup_opened'); // Toggle добавляет класс, если его нет, и удаляет - если есть.
+function togglePopup(popup) {
+  popup.classList.toggle('popup_opened'); // Toggle добавляет класс, если его нет, и удаляет - если есть.
 }
 
-function cardPopupToggle() {
-  popupForCard.classList.toggle('popup_opened');
+function editProfile() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+  togglePopup(popupForProfile);
+}
+
+function addNewCard() {
+  // Очищаем Input'ы, если пользователь вводил что-то ранее
+  cardForm.reset();
+  togglePopup(popupForCard);
 }
 
 function likeToggle(evt) {
   evt.target.classList.toggle('card__like_color_black'); // evt.target даст нам конкретный like, который меняем на черный
-}
-
-function photoPopupToggle() {
-  popupForPhoto.classList.toggle('popup_opened');
 }
 
 function deleteHandler(evt) {
@@ -92,7 +96,7 @@ function submitProfileHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  profilePopupToggle();
+  togglePopup(popupForProfile);
 }
 
 function submitCardHandler(evt) {
@@ -102,39 +106,27 @@ function submitCardHandler(evt) {
     link: photoLinkInput.value
   };
   renderItem(item); // Добавляем карточку в photogrid
-  photoNameInput.value = ''; // Очищаем Input'ы
-  photoLinkInput.value = '';
-  cardPopupToggle(); // Закрываем popup
-  setListeners(); // Расставляем EventListener'ы для всех карточек, включая новую
+  togglePopup(popupForCard); // Закрываем popup
 }
 
 function openPhoto(evt) {
-  photoPopupToggle();
+  togglePopup(popupForPhoto);
   let itemCard = evt.target.closest('.card');
   let text = itemCard.querySelector('.card__text');
   photoOpened.src = evt.target.getAttribute('src');
   photoOpened.alt = evt.target.getAttribute('alt');
   photoCaption.textContent = text.textContent;
 }
+
 profileForm.addEventListener('submit', submitProfileHandler);
 cardForm.addEventListener('submit', submitCardHandler);
 
-editProfileButton.addEventListener('click', profilePopupToggle);
-closeProfileButton.addEventListener('click', profilePopupToggle);
-addCardButton.addEventListener('click', cardPopupToggle);
-closeCardButton.addEventListener('click', cardPopupToggle);
-closePhotoButton.addEventListener('click', photoPopupToggle);
-
-function setListeners() {
-  document.querySelectorAll('.card__like').forEach((btn) => {
-    btn.addEventListener("click", likeToggle);
-  });
-  document.querySelectorAll('.card__delete').forEach((btn) => {
-    btn.addEventListener("click", deleteHandler);
-  });
-  document.querySelectorAll('.card__image').forEach((img) => {
-    img.addEventListener("click", openPhoto);
-  });
-} // Следим за кликами на все лайки, делиты и картинки
+editProfileButton.addEventListener('click', editProfile);
+closeProfileButton.addEventListener('click', (evt) => togglePopup(popupForProfile));
+// Можно еще написать вот так:
+// closeProfileButton.addEventListener('click', function(){togglePopup(popupForProfile)});
+addCardButton.addEventListener('click', addNewCard);
+closeCardButton.addEventListener('click', (evt) => togglePopup(popupForCard));
+closePhotoButton.addEventListener('click', (evt) => togglePopup(popupForPhoto));
 
 render(); // Загружаем первоначальные картинки и расставляем EventListener'ы при открытии страницы
