@@ -1,0 +1,14 @@
+.popup__field {
+  display: block;
+  position: relative;
+}
+
+.popup__field:not(:first-child) {
+  margin-top: 29px;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__input:not(:first-child) {
+    margin-top: 20px;
+  }
+}

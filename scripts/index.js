@@ -44,6 +44,7 @@ const profileForm = popupForProfile.querySelector('.popup__form');
 const closeProfileButton = popupForProfile.querySelector('.popup__close');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
+const saveProfileButton=popupForProfile.querySelector('.popup__save');
 
 const popupForPhoto = document.querySelector('.popup_type_photo');
 const closePhotoButton = popupForPhoto.querySelector('.popup__close');
@@ -63,7 +64,7 @@ function renderItem(item) {
   cardImage.alt = item.name;
   cardText.textContent = item.name;
   photogrid.prepend(htmlElement); // Добавляем новую карточку в начало сетки
-  setListners(card);
+  setListeners(card);
 }
 
 function togglePopup(popup) {
@@ -73,12 +74,28 @@ function togglePopup(popup) {
 function editProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  cleanErrors(profileForm, {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_visible'
+  }); // Очищаем ошибки, если пользователь что-то ранее вводил. Для повторного использования формы.
   togglePopup(popupForProfile);
 }
 
 function addNewCard() {
   // Очищаем Input'ы, если пользователь вводил что-то ранее
   cardForm.reset();
+  cleanErrors(cardForm, {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_visible'
+  }); // Очищаем ошибки, если пользователь что-то ранее вводил. Для повторного использования формы.
   togglePopup(popupForCard);
 }
 
@@ -116,6 +133,23 @@ function openPhoto(evt) {
   photoCaption.textContent = text.textContent;
 }
 
+function popupCloseByClickOnOverlay(evt, popup) {
+  //target - по чему был сделан клик,
+  //currentTarget - к какому объекту относится обработчик события (к popup в данном случае)
+  if (evt.target !== evt.currentTarget) {
+    return
+  } //если клик, например, был сделан по popup__container, то target !== currentTarget и ничего не произойдет
+  togglePopup(popup); //а если клик был сделан по подложке, то event.target = event.currentTarget, попап закрывается
+}
+
+// Функция отвечает за закрытие попапов при нажатии Esc
+function keyHandler(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if ((evt.key === "Escape") && (openedPopup)) {  //второе условие принит значение false, если такого popup'a нет
+    togglePopup(openedPopup);
+  }
+}
+
 profileForm.addEventListener('submit', submitProfileHandler);
 cardForm.addEventListener('submit', submitCardHandler);
 
@@ -126,8 +160,13 @@ closeProfileButton.addEventListener('click', function(){togglePopup(popupForProf
 addCardButton.addEventListener('click', addNewCard);
 closeCardButton.addEventListener('click', function(){togglePopup(popupForCard)});
 closePhotoButton.addEventListener('click', function(){togglePopup(popupForPhoto)});
+popupForCard.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForCard)});
+popupForProfile.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForProfile)});
+popupForPhoto.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForPhoto)});
 
-function setListners(card){
+document.addEventListener('keydown', keyHandler);
+
+function setListeners(card){
   card.querySelector('.card__like').addEventListener("click", likeToggle);
   card.querySelector('.card__delete').addEventListener("click", deleteHandler);
   card.querySelector(".card__image").addEventListener("click", openPhoto);

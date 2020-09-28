@@ -35,13 +35,20 @@
 
     <section class="popup popup_type_edit-profile">
       <div class="popup__container">
-        <form class="popup__form" name="profile-form">
+        <form class="popup__form" name="profile-form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
           <div class="popup__inputs">
-            <input type="text" name="name" placeholder="Имя"
-              class="popup__input popup__input_type_name">
-            <input type="text" name="job" placeholder="Профессия"
-              class="popup__input popup__input_type_job">
+            <label class="popup__field">
+              <input type="text" name="name" placeholder="Имя" id="name-input" minlength="2"
+                maxlength="40" class="popup__input popup__input_type_name" required>
+              <span class="popup__input-error" id="name-input-error"></span>
+            </label>
+
+            <label class="popup__field">
+              <input type="text" name="job" placeholder="О себе" id="job-input" minlength="2"
+                maxlength="200" class="popup__input popup__input_type_job" required>
+              <span class="popup__input-error" id="job-input-error"></span>
+            </label>
           </div>
           <button type="submit" class="popup__save">Сохранить</button>
         </form>
@@ -51,13 +58,20 @@
 
     <section class="popup popup_type_new-card">
       <div class="popup__container">
-        <form class="popup__form" name="new-card-form">
+        <form class="popup__form" name="new-card-form" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <div class="popup__inputs">
-            <input type="text" name="photoname" placeholder="Название"
-              class="popup__input popup__input_type_photoname" required>
-            <input type="url" name="photolink" placeholder="Ссылка на картинку"
-              class="popup__input popup__input_type_photolink" required>
+            <label class="popup__field">
+              <input type="text" name="photoname" placeholder="Название" id="photoname-input"
+                minlength="2" maxlength="30" class="popup__input popup__input_type_photoname" required>
+              <span class="popup__input-error" id="photoname-input-error"></span>
+            </label>
+
+            <label class="popup__field">
+              <input type="url" name="photolink" placeholder="Ссылка на картинку" id="photolink-input"
+                class="popup__input popup__input_type_photolink" required>
+              <span class="popup__input-error" id="photolink-input-error"></span>
+            </label>
           </div>
           <button type="submit" class="popup__save">Создать</button>
         </form>
@@ -76,6 +90,7 @@
   </div>
 
   <script src="./scripts/index.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
 
   <template class="template">
     <li class="card">

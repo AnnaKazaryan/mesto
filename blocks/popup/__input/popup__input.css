@@ -13,18 +13,10 @@
   overflow: hidden;
 }
 
-.popup__input:not(:first-child) {
-  margin-top: 29px;
-}
-
 @media screen and (max-width: 540px) {
   .popup__input {
     font-size: 12px;
     line-height: 1;
-  }
-
-  .popup__input:not(:first-child) {
-    margin-top: 20px;
   }
 }
 

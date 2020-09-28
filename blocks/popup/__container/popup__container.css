@@ -9,6 +9,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  cursor: default;
 }
 
 @media screen and (max-width: 540px) {
