@@ -52,10 +52,10 @@ const photoOpened = popupForPhoto.querySelector('.popup__image');
 const photoCaption = popupForPhoto.querySelector('.popup__caption');
 
 function render() {
-  initialCards.forEach(renderItem);
+  initialCards.forEach(addCardToGrid);
 }
 
-function renderItem(item) {
+function createCard(item) {
   const htmlElement = cardFromTemplate.cloneNode(true);
   const cardImage = htmlElement.querySelector(".card__image");
   const cardText = htmlElement.querySelector(".card__text");
@@ -63,8 +63,13 @@ function renderItem(item) {
   cardImage.src = item.link;
   cardImage.alt = item.name;
   cardText.textContent = item.name;
-  photogrid.prepend(htmlElement); // Добавляем новую карточку в начало сетки
   setListeners(card);
+  return (card);
+}
+
+function addCardToGrid(item) {
+  const card = createCard (item);
+  photogrid.prepend(card); // Добавляем новую карточку в начало сетки
 }
 
 function togglePopup(popup) {
@@ -99,28 +104,28 @@ function addNewCard() {
   togglePopup(popupForCard);
 }
 
-function likeToggle(evt) {
+function toggleLike(evt) {
   evt.target.classList.toggle('card__like_color_black'); // evt.target даст нам конкретный like, который меняем на черный
 }
 
-function deleteHandler(evt) {
+function handleDelete(evt) {
   evt.target.closest('.card').remove(); // Удаляем родителя конкретной кнопки delete, т.е. конкретную карточку
 }
 
-function submitProfileHandler(evt) {
+function handleProfileSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   togglePopup(popupForProfile);
 }
 
-function submitCardHandler(evt) {
+function handleCardSubmit(evt) {
   evt.preventDefault();
   const item = {
     name: photoNameInput.value,
     link: photoLinkInput.value
   };
-  renderItem(item); // Добавляем карточку в photogrid
+  addCardToGrid(item); // Добавляем карточку в photogrid
   togglePopup(popupForCard); // Закрываем popup
 }
 
@@ -133,7 +138,7 @@ function openPhoto(evt) {
   photoCaption.textContent = text.textContent;
 }
 
-function popupCloseByClickOnOverlay(evt, popup) {
+function closePopupByClickOnOverlay(evt, popup) {
   //target - по чему был сделан клик,
   //currentTarget - к какому объекту относится обработчик события (к popup в данном случае)
   if (evt.target !== evt.currentTarget) {
@@ -143,15 +148,15 @@ function popupCloseByClickOnOverlay(evt, popup) {
 }
 
 // Функция отвечает за закрытие попапов при нажатии Esc
-function keyHandler(evt) {
+function handleKeydown(evt) {
   const openedPopup = document.querySelector('.popup_opened');
-  if ((evt.key === "Escape") && (openedPopup)) {  //второе условие принит значение false, если такого popup'a нет
+  if ((evt.key === "Escape") && (openedPopup)) {  //второе условие примет значение false, если такого popup'a нет
     togglePopup(openedPopup);
   }
 }
 
-profileForm.addEventListener('submit', submitProfileHandler);
-cardForm.addEventListener('submit', submitCardHandler);
+profileForm.addEventListener('submit', handleProfileSubmit);
+cardForm.addEventListener('submit', handleCardSubmit);
 
 editProfileButton.addEventListener('click', editProfile);
 closeProfileButton.addEventListener('click', function(){togglePopup(popupForProfile)});
@@ -160,15 +165,15 @@ closeProfileButton.addEventListener('click', function(){togglePopup(popupForProf
 addCardButton.addEventListener('click', addNewCard);
 closeCardButton.addEventListener('click', function(){togglePopup(popupForCard)});
 closePhotoButton.addEventListener('click', function(){togglePopup(popupForPhoto)});
-popupForCard.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForCard)});
-popupForProfile.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForProfile)});
-popupForPhoto.addEventListener('click', function(event){popupCloseByClickOnOverlay(event, popupForPhoto)});
+popupForCard.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForCard)});
+popupForProfile.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForProfile)});
+popupForPhoto.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForPhoto)});
 
-document.addEventListener('keydown', keyHandler);
+document.addEventListener('keydown', handleKeydown);
 
 function setListeners(card){
-  card.querySelector('.card__like').addEventListener("click", likeToggle);
-  card.querySelector('.card__delete').addEventListener("click", deleteHandler);
+  card.querySelector('.card__like').addEventListener("click", toggleLike);
+  card.querySelector('.card__delete').addEventListener("click", handleDelete);
   card.querySelector(".card__image").addEventListener("click", openPhoto);
   // Следим за кликами на все лайки, делиты и картинки
 }
