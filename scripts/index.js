@@ -1,4 +1,4 @@
-import {closePopupByClickOnOverlay, togglePopup} from './utils.js';
+import {closePopup, openPopup} from './utils.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import {initialCards, formData} from './config.js';
@@ -7,7 +7,6 @@ const photogrid = document.querySelector(".photo-grid");
 const popupForCard = document.querySelector('.popup_type_new-card');
 const addCardButton = document.querySelector('.profile__add-button');
 const cardForm = popupForCard.querySelector('.popup__form');
-const closeCardButton = popupForCard.querySelector('.popup__close');
 const photoNameInput = document.querySelector('.popup__input_type_photoname');
 const photoLinkInput = document.querySelector('.popup__input_type_photolink');
 
@@ -16,7 +15,6 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const profileForm = popupForProfile.querySelector('.popup__form');
-const closeProfileButton = popupForProfile.querySelector('.popup__close');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_job');
 
@@ -37,21 +35,21 @@ function editProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   profileFormValidator.cleanErrors(); // Очищаем ошибки, если пользователь что-то ранее вводил. Для повторного использования формы.
-  togglePopup(popupForProfile);
+  openPopup(popupForProfile);
 }
 
 function addNewCard() {
   // Очищаем Input'ы, если пользователь вводил что-то ранее
   cardForm.reset();
   cardFormValidator.cleanErrors(); // Очищаем ошибки, если пользователь что-то ранее вводил. Для повторного использования формы.
-  togglePopup(popupForCard);
+  openPopup(popupForCard);
 }
 
 function handleProfileSubmit(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  togglePopup(popupForProfile);
+  closePopup(popupForProfile);
 }
 
 function handleCardSubmit(evt) {
@@ -61,18 +59,25 @@ function handleCardSubmit(evt) {
     link: photoLinkInput.value
   };
   addCardToGrid(item); // Добавляем карточку в photogrid
-  togglePopup(popupForCard); // Закрываем popup
+  closePopup(popupForCard); // Закрываем popup
 }
 
 profileForm.addEventListener('submit', handleProfileSubmit);
 cardForm.addEventListener('submit', handleCardSubmit);
 
 editProfileButton.addEventListener('click', editProfile);
-closeProfileButton.addEventListener('click', function(){togglePopup(popupForProfile)});
 addCardButton.addEventListener('click', addNewCard);
-closeCardButton.addEventListener('click', function(){togglePopup(popupForCard)});
-popupForCard.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForCard)});
-popupForProfile.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForProfile)});
+
+popupForCard.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(popupForCard);
+  }
+});
+popupForProfile.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(popupForProfile);
+  }
+});
 
 render(); // Загружаем первоначальные картинки и расставляем EventListener'ы при открытии страницы
 cardFormValidator.enableValidation(); //Включаем валидацию формы

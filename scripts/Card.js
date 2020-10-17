@@ -44,7 +44,7 @@ class Card {
     this._element.querySelector('.card__delete').addEventListener("click", () => {
       this._handleDelete()
     });
-    this._element.querySelector(".card__image").addEventListener("click", () => {
+    this._element.querySelector(".card__image").addEventListener("click", (event) => {
       openPhoto(event)
     });
   }

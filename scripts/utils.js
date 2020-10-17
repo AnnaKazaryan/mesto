@@ -1,20 +1,21 @@
 const popupForPhoto = document.querySelector('.popup_type_photo');
-const closePhotoButton = popupForPhoto.querySelector('.popup__close');
 const photoOpened = popupForPhoto.querySelector('.popup__image');
 const photoCaption = popupForPhoto.querySelector('.popup__caption');
 
 
-function togglePopup(popup) {
+function openPopup(popup) {
   popup.classList.toggle('popup_opened');
-  if (popup.classList.contains('popup_opened')) {
-    document.addEventListener('keydown', handleKeydown);
-  } else {
-    document.removeEventListener('keydown', handleKeydown);
-  }
+  document.addEventListener('keyup', handleKeyup);
 }
 
+function closePopup(popup) {
+  popup.classList.toggle('popup_opened');
+  document.removeEventListener('keyup', handleKeyup);
+}
+
+
 function openPhoto(evt) {
-  togglePopup(popupForPhoto);
+  openPopup(popupForPhoto);
   const itemCard = evt.target.closest('.card');
   const text = itemCard.querySelector('.card__text');
   photoOpened.src = evt.target.getAttribute('src');
@@ -22,22 +23,18 @@ function openPhoto(evt) {
   photoCaption.textContent = text.textContent;
 }
 
-function closePopupByClickOnOverlay(evt, popup) {
-
-  if (evt.target !== evt.currentTarget) {
-    return
-  }
-  togglePopup(popup);
-}
-
-function handleKeydown(evt) {
+function handleKeyup(evt) {
   const openedPopup = document.querySelector('.popup_opened');
-  if ((evt.key === "Escape") && (openedPopup)) {
-    togglePopup(openedPopup);
+  if (evt.key === "Escape") {
+    closePopup(openedPopup);
   }
+
 }
 
-closePhotoButton.addEventListener('click', function(){togglePopup(popupForPhoto)});
-popupForPhoto.addEventListener('click', function(event){closePopupByClickOnOverlay(event, popupForPhoto)});
+popupForPhoto.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+    closePopup(popupForPhoto);
+  }
+});
 
-export {openPhoto, closePopupByClickOnOverlay, togglePopup};
+export {openPhoto, openPopup, closePopup};

@@ -44,7 +44,11 @@ class FormValidator {
   };
 
   enableValidation() {
-      this._setEventListeners();
+    const submitFormHandler = (event) => {
+      event.preventDefault();
+    };
+    this._formElement.addEventListener("submit", submitFormHandler);
+    this._setEventListeners();
   };
 
   _hasInvalidInput(inputList) {
